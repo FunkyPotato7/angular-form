@@ -8,13 +8,12 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatIconModule} from '@angular/material/icon';
+import {MatLegacyChipsModule} from '@angular/material/legacy-chips';
 
 import { AppComponent } from './app.component';
 import { FormComponent } from './components/form/form.component';
-import {MatChipsModule} from "@angular/material/chips";
-import {MatIconModule} from "@angular/material/icon";
-import {MatLegacyChipsModule} from "@angular/material/legacy-chips";
-
 
 @NgModule({
   declarations: [
