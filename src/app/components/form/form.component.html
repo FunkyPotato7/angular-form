@@ -1,0 +1,89 @@
+<div class="content">
+  <h1>Form</h1>
+  <form [formGroup]="form" class="form">
+    <mat-form-field>
+      <mat-label>First Name</mat-label>
+      <input matInput type="text" formControlName="firstName">
+      <mat-error *ngIf="form.controls['firstName']['errors']?.['required']">
+        {{form.controls['firstName']['errors']?.['required'] && 'This field is required'
+        || form.controls['firstName']['errors']?.['minlength'] && 'Min length 2'
+        || form.controls['firstName']['errors']?.['maxlength'] && 'Max length 20'
+        }}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Last Name</mat-label>
+      <input matInput type="text" formControlName="lastName">
+      <mat-error *ngIf="form.controls['lastName']?.['errors']">
+        {{form.controls['lastName']['errors']?.['required'] && 'This field is required'
+      || form.controls['lastName']['errors']?.['minlength'] && 'Min length 2'
+      || form.controls['lastName']['errors']?.['maxlength'] && 'Max length 20'
+        }}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Birthday</mat-label>
+      <input matInput [matDatepicker]="picker" type="text" formControlName="dateOfBirth">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="form.controls['dateOfBirth']['errors']">
+        This field is required
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Framework</mat-label>
+      <mat-select formControlName="framework">
+        <mat-option *ngFor="let framework of frameworks" [value]="framework">
+          {{framework}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.controls['framework']['errors']">
+        This field is required
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Version</mat-label>
+      <mat-select formControlName="frameworkVersion">
+        <mat-option *ngFor="let version of versions[form.get('framework')?.value]" [value]="version">
+          {{version}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.controls['frameworkVersion']['errors']">
+        This field is required
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput type="email" formControlName="email">
+      <mat-error *ngIf="form.controls['email']?.['errors']">
+        {{form.controls['email']['errors']?.['required'] && 'This field is required'
+        || form.controls['email']['errors']?.['pattern'] && 'Bad email pattern'
+        || form.controls['email']['errors']?.['apiErr']}}
+      </mat-error>
+    </mat-form-field>
+    <div class="hobbyForm">
+      <div class="hobbyFields">
+        <mat-form-field>
+          <mat-label>Hobby</mat-label>
+          <input matInput type="text" formControlName="hobby">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Duration</mat-label>
+          <input matInput type="text" formControlName="hobbyDuration">
+        </mat-form-field>
+      </div>
+      <button mat-raised-button color="primary" (click)="addHobby()">Add</button>
+      <mat-chip-listbox>
+        <mat-chip *ngFor="let hobby of hobbies" (removed)="removeHobby(hobby)">
+          {{ hobby.name }}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+      </mat-chip-listbox>
+      <mat-error *ngIf="form.controls['hobby']['errors']">
+        You need to add at least 1 hobby
+      </mat-error>
+    </div>
+    <button mat-raised-button color="primary" (click)="save(form.value)">Submit</button>
+  </form>
+</div>
